@@ -6,7 +6,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="bg-gray-800 text-white">
+    <div className="bg-gray-800 text-white sticky top-0 z-50 shadow-xl">
       <div className="flex  items-center p-4  mx-auto">
         <h1 className="text-2xl font-bold">Recipe Finder</h1>
 

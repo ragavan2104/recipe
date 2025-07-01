@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { FaHeart, FaRegHeart, FaArrowLeft } from "react-icons/fa";
 import axios from "axios";
+import Loading from "../components/Loading";
 
 const RecipeDetails = () => {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const fetchRecipeDetails = async () => {
     try {
@@ -14,10 +17,37 @@ const RecipeDetails = () => {
       );
       setRecipe(res.data);
       setLoading(false);
+      
+      // Check if recipe is in favorites
+      const savedFavorites = localStorage.getItem("favoriteRecipes");
+      if (savedFavorites) {
+        const favorites = JSON.parse(savedFavorites);
+        setIsFavorite(favorites.some(fav => fav.id === res.data.id));
+      }
     } catch (error) {
       console.error("Error fetching recipe details", error);
       setLoading(false);
     }
+  };
+
+  // Toggle favorite status
+  const toggleFavorite = () => {
+    if (!recipe) return;
+    
+    const savedFavorites = localStorage.getItem("favoriteRecipes");
+    let favorites = savedFavorites ? JSON.parse(savedFavorites) : [];
+    
+    if (isFavorite) {
+      // Remove from favorites
+      favorites = favorites.filter(fav => fav.id !== recipe.id);
+      setIsFavorite(false);
+    } else {
+      // Add to favorites
+      favorites.push(recipe);
+      setIsFavorite(true);
+    }
+    
+    localStorage.setItem("favoriteRecipes", JSON.stringify(favorites));
   };
 
   useEffect(() => {
@@ -27,7 +57,10 @@ const RecipeDetails = () => {
   if (loading) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-8">
-        <div className="text-center">Loading...</div>
+        <Loading 
+          size="large" 
+          text="Loading recipe details..." 
+        />
       </div>
     );
   }
@@ -42,6 +75,15 @@ const RecipeDetails = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
+      {/* Back button */}
+      <button
+        onClick={() => window.history.back()}
+        className="flex items-center gap-2 text-blue-500 hover:text-blue-600 mb-4 transition-colors"
+      >
+        <FaArrowLeft />
+        Back
+      </button>
+
       <div className="bg-white rounded-lg shadow-lg overflow-hidden">
         <img
           src={recipe.image}
@@ -50,7 +92,20 @@ const RecipeDetails = () => {
         />
         
         <div className="p-6">
-          <h1 className="text-3xl font-bold mb-4">{recipe.title}</h1>
+          <div className="flex items-start justify-between mb-4">
+            <h1 className="text-3xl font-bold flex-1">{recipe.title}</h1>
+            <button
+              onClick={toggleFavorite}
+              className="ml-4 p-3 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+              title={isFavorite ? "Remove from favorites" : "Add to favorites"}
+            >
+              {isFavorite ? (
+                <FaHeart className="text-red-500" size={20} />
+              ) : (
+                <FaRegHeart className="text-gray-400 hover:text-red-500" size={20} />
+              )}
+            </button>
+          </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             <div className="text-center">

@@ -12,19 +12,20 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-
-    <>
+    <div className="min-h-screen flex flex-col">
      <BrowserRouter>
      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/favorites" element={<Favorites />} />
-        <Route path="/contact" element={<ContactUs />} />
-        <Route path="/recipe/:id" element={<RecipeDetails />} />
-      </Routes>
+      <main className="flex-grow">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/favorites" element={<Favorites />} />
+          <Route path="/contact" element={<ContactUs />} />
+          <Route path="/recipe/:id" element={<RecipeDetails />} />
+        </Routes>
+      </main>
       <Footer />
      </BrowserRouter>
-    </>
+    </div>
   )
 }
 
