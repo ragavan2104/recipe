@@ -10,10 +10,10 @@ import Footer from './components/Footer'
 
 function App() {
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-orange-50 via-white to-red-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
       <BrowserRouter>
         <Navbar />
-        <main className="flex-grow">
+        <main className="min-h-screen">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/favorites" element={<Favorites />} />
@@ -25,6 +25,7 @@ function App() {
       </BrowserRouter>
     </div>
   )
+}
 }
 
 export default App
