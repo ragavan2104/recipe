@@ -42,10 +42,10 @@ const Favorites = () => {
       </div>
 
       {favorites.length > 0 && (
-        <div className="text-center mb-6">
+        <div className="text-center mb-6 relative">
           <button
             onClick={clearAllFavorites}
-            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 mx-auto transition-colors"
+            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center gap-2  transition-colors absolute right-0 top-0 transform -translate-y-1/2 translate-x-1/2 shadow-lg"
           >
             <FaTrash />
             Clear All Favorites
@@ -60,7 +60,7 @@ const Favorites = () => {
               <RecipeCard recipe={recipe} />
               <button
                 onClick={() => removeFromFavorites(recipe.id)}
-                className="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white p-2 rounded-full shadow-lg transition-colors z-10"
+                className="absolute top-48 right-5 bg-red-500 hover:bg-red-600 text-white px-4 p-2 rounded-full shadow-lg transition-colors z-10 "
                 title="Remove from favorites"
               >
                 <FaTrash size={12} />
