@@ -28,7 +28,7 @@ const Favorites = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
-      <div className="text-center mb-8">
+      <div className="text-center mb-8 relative">
         <h1 className="text-3xl font-bold text-gray-800 mb-4 flex items-center justify-center gap-2">
           <FaHeart className="text-red-500" />
           My Favorite Recipes
@@ -39,19 +39,20 @@ const Favorites = () => {
             : "No favorite recipes yet. Start exploring and add some recipes to your favorites!"
           }
         </p>
-      </div>
+  
 
       {favorites.length > 0 && (
-        <div className="text-center mb-6">
+        <div className="text-center mb-6 ">
           <button
             onClick={clearAllFavorites}
-            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 mx-auto transition-colors"
+            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center gap-2  transition-colors absolute right-0 top-0 transform -translate-y-1/2 translate-x-1/2 shadow-lg"
           >
             <FaTrash />
             Clear All Favorites
           </button>
         </div>
       )}
+    </div>      
 
       {favorites.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -60,7 +61,7 @@ const Favorites = () => {
               <RecipeCard recipe={recipe} />
               <button
                 onClick={() => removeFromFavorites(recipe.id)}
-                className="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white p-2 rounded-full shadow-lg transition-colors z-10"
+                className="absolute top-48 right-5 bg-red-500 hover:bg-red-600 text-white px-4 p-2 rounded-full shadow-lg transition-colors z-10 "
                 title="Remove from favorites"
               >
                 <FaTrash size={12} />
