@@ -16,7 +16,7 @@ function App() {
         <main className="min-h-screen">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/favorites" element={<Favorites />} />
+            <Route path="/favourites" element={<Favorites />} />
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/recipe/:id" element={<RecipeDetails />} />
           </Routes>
